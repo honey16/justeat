@@ -45,6 +45,7 @@ app.add_middleware(
         "http://127.0.0.1:5174",
         "http://127.0.0.1:8080",
         "http://127.0.0.1:8081",
+        "https://justeat-iy6k.onrender.com",
         *frontend_origins,
     ],
     allow_credentials=True,
