@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
@@ -31,22 +31,40 @@ const App = () => (
         <CartProvider>
           <TooltipProvider>
             <Sonner />
-            <BrowserRouter>
+            <HashRouter>
               <Routes>
                 <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route path="/login" element={<LoginPage />} />
 
                 {/* Customer Routes */}
-                <Route element={<ProtectedRoute role="customer"><AppLayout /></ProtectedRoute>}>
-                  <Route path="/customer/dashboard" element={<CustomerDashboard />} />
-                  <Route path="/customer/restaurant/:id" element={<RestaurantDetails />} />
+                <Route
+                  element={
+                    <ProtectedRoute role="customer">
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route
+                    path="/customer/dashboard"
+                    element={<CustomerDashboard />}
+                  />
+                  <Route
+                    path="/customer/restaurant/:id"
+                    element={<RestaurantDetails />}
+                  />
                   <Route path="/customer/cart" element={<CartPage />} />
                   <Route path="/customer/orders" element={<OrdersPage />} />
                   <Route path="/customer/profile" element={<ProfilePage />} />
                 </Route>
 
                 {/* Owner Routes */}
-                <Route element={<ProtectedRoute role="owner"><AppLayout /></ProtectedRoute>}>
+                <Route
+                  element={
+                    <ProtectedRoute role="owner">
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }
+                >
                   <Route path="/owner/dashboard" element={<OwnerDashboard />} />
                   <Route path="/owner/menu" element={<ManageMenu />} />
                   <Route path="/owner/orders" element={<OwnerOrders />} />
@@ -54,7 +72,7 @@ const App = () => (
 
                 <Route path="*" element={<NotFound />} />
               </Routes>
-            </BrowserRouter>
+            </HashRouter>
           </TooltipProvider>
         </CartProvider>
       </AuthProvider>
